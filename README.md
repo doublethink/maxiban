@@ -83,10 +83,11 @@ As it was implemented at the time, this would have been devastating for non-list
 Yes, I emailed Satoshi but he didn't reply   
 
 ### Should I run this tool while connected to the network of a major Bitcoin mining operation or BaaS?
-Yes
+Yes, MaxiBan helps stabalise the grid and encourages investment in renewable energy...   
 
 ### Would it take down the network if an entity capable of spoofing TCP connections recursively ran this against all listening node IPs?
-Yes
+Yes.   
+but its just code...
 
 ### Why doesn't MaxiBan support IPv6?
 What is IPv6?   
