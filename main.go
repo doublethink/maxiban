@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"math/rand"
 	"net"
@@ -43,7 +42,7 @@ var header = wire.BlockHeader{
 // Fetches the latest nodes from BitNodes, and decodes into the Snapshot struct
 func getNodes(snapshot *Snapshot) error {
 	// Fetch latest bitcoin nodes.
-	fmt.Println("Fetching latest node snapshot")
+	log.Info("Fetching latest node snapshot")
 	response, err := http.Get("https://bitnodes.io/api/v1/snapshots/latest/")
 	if err != nil {
 		return err
@@ -140,7 +139,9 @@ func discourageIP(ip string) {
 
 func main() {
 	// Setup logging
-	log.SetFormatter(&log.TextFormatter{})
+	log.SetFormatter(&log.TextFormatter{
+		FullTimestamp: true,
+	})
 	log.SetLevel(log.InfoLevel)
 
 	// Fetch nodes
