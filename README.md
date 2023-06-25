@@ -45,10 +45,17 @@ $ cd maxiban
 
 - Install dependencies, build, and run
 ```bash
-$ go install
-$ go build -o maxiban main
+$ go build -o maxiban main.go
 $ ./maxiban
 ```
+
+- Set up Cron Job
+```bash
+crontab -e
+0 0 * * * [PATH TO CODE]/maxiban > [PATH TO CODE]/maxi.log
+```
+
+MaxiBan takes roughly five minutes to run on a Raspberry Pi 4. Much faster on more capable hardware.
 
 ## FAQ
 
@@ -69,7 +76,7 @@ In addition to the above. Listening nodes will not connect to you, and will not 
 ### What if I am using a proxy or TOR?   
 The final public IP of MaxiBans route is the IP that is discouraged.   
 If you are running from home with no static IP, the CG-NAT egress IP will be discouraged.   
-If the OS running MaxiBan is using a SOCK5 proxy, the remote IP will be discouraged.   
+If the OS running MaxiBan is using a SOCK5 proxy or VPN, the remote IP will be discouraged.   
 If the OS running MaxiBan is using TOR, the IP of the exit relay will be discouraged.    
 MaxiBan does not currently support onion addresses but its worth mentioning only other TOR nodes can connect to onion addresses...  
 MaxiBan has not been tested through a proxy or TOR.
@@ -82,20 +89,34 @@ As it was implemented at the time, this would have been devastating for non-list
 ### Did you responsibly disclose your findings?
 Yes, I emailed Satoshi but he didn't reply   
 
+### I thought Bitcoin was secure?
+Only if your definition of secure is a very narrow "double spend resistant over a decentralised network"   
+Bitcoin nodes are just applications, and applications (and immutable smart contracts...) have bugs.   
+A 14 year old Open Source C++ (hint) project is going to have them.   
+The bulk of security testing tools are built for HTTP/S, so its actually really hard to test the Bitcoin network layer, which is a bespoke protocol on top of TCP.   
+The only thing close is an nmap script from 2011 and a Wireshark slicer.   
+Needless to say, I think 99% of Security research into Bitcoin focuses on the consensus layer...
+
 ### Should I run this tool while connected to the network of a major Bitcoin mining operation or BaaS?
 Yes, MaxiBan helps stabalise the grid and encourages investment in renewable energy...   
 
 ### Would it take down the network if an entity capable of spoofing TCP connections recursively ran this against all listening node IPs?
-Yes.   
-but its just code...
+Maybe? Technically onion, I2P, and CJDNS cannot be discouraged this way.   
+Its important to point out that unlike IPv4 addresses that are digital gold, there is no theoretical limit to the number of .onion (etc) addresses that a single node can run behind.   
+A majority onion Bitcoin network is a Sybil attack waiting to happen.   
 
 ### Why doesn't MaxiBan support IPv6?
 What is IPv6?   
-Just kidding. It can, I just ran out of time.   
+Just kidding. It could, I just ran out of time.   
 
 ### If Bitcoin network traffic was encrypted would this still be possible?
 Yes it would.   
-But encryption would make Bitcoin censorship resistant, unlike today.
+But encryption would make Bitcoin censorship resistant, unlike today.   
+I don't think you can call a thing censorship resistant if it depends on a proxy for that, it just means the destination hasn't censored it yet.   
+Is Netflix censorship resistant?
 
 ### Is it ethical to potentially limit others access to the network using the same public IP as you?
 Is is ethical to consume as much energy as a medium sized country on a speculative asset?
+
+### Are you working on any other Bitcoin Security tools?
+Yes. This one was just easier to finish first.

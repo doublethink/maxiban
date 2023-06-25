@@ -68,6 +68,8 @@ func nodeHandshake(conn net.Conn) error {
 		return err
 	}
 
+	time.Sleep(time.Second)
+
 	// Send verack
 	verack := wire.NewMsgVerAck()
 	err = wire.WriteMessage(conn, verack, PVER, BTCNET)
